@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import NoteCard from "./NoteCard";
-import NoteForm from "./NoteForm";
+import React, { useEffect, useState } from "react";
 import { getNotes, createNote, updateNote, deleteNote } from "../api";
+import NoteForm from "./NoteForm";
 
 export default function NoteList() {
   const [notes, setNotes] = useState([]);
   const [editingNote, setEditingNote] = useState(null);
 
+  // Fetch notes from backend
   const fetchNotes = async () => {
     try {
       const data = await getNotes();
@@ -16,33 +16,67 @@ export default function NoteList() {
     }
   };
 
-  useEffect(() => { fetchNotes(); }, []);
-
-  const handleAddOrUpdate = async (note) => {
-    if (editingNote) {
-      await updateNote(editingNote.id, note);
-      setEditingNote(null);
-    } else {
-      await createNote(note);
-    }
+  useEffect(() => {
     fetchNotes();
+  }, []);
+
+  // Handle add/update
+  const handleSubmit = async (note) => {
+    try {
+      if (editingNote) {
+        await updateNote(editingNote.id, note);
+        setEditingNote(null);
+      } else {
+        await createNote(note);
+      }
+      fetchNotes(); // refresh after change
+    } catch (err) {
+      console.error(err);
+    }
   };
 
-  const handleEdit = (note) => setEditingNote(note);
   const handleDelete = async (id) => {
-    await deleteNote(id);
-    fetchNotes();
+    try {
+      await deleteNote(id);
+      fetchNotes();
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
-    <div className="notes-wrapper">
-      <NoteForm onSubmit={handleAddOrUpdate} note={editingNote} />
-      <h2>Your Notes</h2>
-      <div className="notes-grid">
-        {notes.length === 0 && <p className="no-notes">No notes yet</p>}
-        {notes.map(note => (
-          <NoteCard key={note.id} note={note} onEdit={handleEdit} onDelete={handleDelete} />
-        ))}
+    <div className="app-container">
+      <h1 className="app-title">Notes App</h1>
+
+      <NoteForm onSubmit={handleSubmit} note={editingNote} />
+
+      <div className="notes-wrapper">
+        {notes.length === 0 ? (
+          <p className="no-notes">No notes yet!</p>
+        ) : (
+          <div className="notes-grid">
+            {notes.map((note) => (
+              <div key={note.id} className="note-card">
+                <h3>{note.title}</h3>
+                <p>{note.content}</p>
+                <div className="note-actions">
+                  <button
+                    className="edit-btn"
+                    onClick={() => setEditingNote(note)}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="delete-btn"
+                    onClick={() => handleDelete(note.id)}
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
