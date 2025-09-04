@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:8080/api/notes";
+const BASE_URL = "https://notes-backend.onrender.com/api/notes";
 
 export const getNotes = async () => {
   const res = await fetch(BASE_URL);
