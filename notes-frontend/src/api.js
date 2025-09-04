@@ -1,4 +1,4 @@
-const BASE_URL = "https://notes-backend.onrender.com/api/notes";
+const BASE_URL = "https://notes-backend-production-d5f1.up.railway.app/api/notes";
 
 export const getNotes = async () => {
   const res = await fetch(BASE_URL);
