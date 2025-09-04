@@ -33,7 +33,7 @@ export const deleteNote = async (id) => {
 
 
 export const getNoteById = async (shareId) => {
-  const res = await fetch(`https://notes-backend-production-d5f1.up.railway.app/share/${shareId}`);
+  const res = await fetch(`https://notes-backend-production-d5f1.up.railway.app/api/notes/share/${shareId}`);
   if (!res.ok) throw new Error("Note not found");
   return await res.json();
 };

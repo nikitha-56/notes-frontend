@@ -2,7 +2,7 @@ import React from "react";
 
 export default function NoteCard({ note, onEdit, onDelete }) {
   const handleShare = () => {
-    const shareURL = `https://yourfrontend.vercel.app/share/${note.id}`;
+    const shareURL = `https://notes-backend-production-d5f1.up.railway.app/api/notes/share/${note.shareId}`;
     navigator.clipboard.writeText(shareURL);
     alert("Share link copied to clipboard!");
   };

@@ -1,4 +1,4 @@
-/* General App Layout */
+
 .app-container {
   font-family: Arial, sans-serif;
   background: #f4f4f9;
@@ -13,7 +13,6 @@
   color: #333;
 }
 
-/* Add Note Form */
 .note-form {
   background: white;
   padding: 20px;
@@ -49,7 +48,6 @@
   background: #0056b3;
 }
 
-/* Notes Grid */
 .notes-wrapper {
   max-width: 900px;
   margin: 0 auto;
@@ -67,7 +65,6 @@
   text-align: center;
 }
 
-/* Note Card */
 .note-card {
   background: white;
   padding: 15px;
@@ -84,7 +81,6 @@
   color: #555;
 }
 
-/* Note Actions */
 .note-actions {
   margin-top: 10px;
   display: flex;
