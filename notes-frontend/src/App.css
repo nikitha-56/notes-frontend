@@ -1,0 +1,118 @@
+/* General App Layout */
+.app-container {
+  font-family: Arial, sans-serif;
+  background: #f4f4f9;
+  min-height: 100vh;
+  padding: 20px;
+  text-align: center;
+}
+
+.app-title {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Add Note Form */
+.note-form {
+  background: white;
+  padding: 20px;
+  margin: 0 auto 30px;
+  max-width: 500px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.note-form h2 {
+  margin-bottom: 15px;
+}
+
+.note-form input,
+.note-form textarea {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.note-form button {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.note-form button:hover {
+  background: #0056b3;
+}
+
+/* Notes Grid */
+.notes-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.notes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.no-notes {
+  color: #777;
+  text-align: center;
+}
+
+/* Note Card */
+.note-card {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.note-card h3 {
+  margin-top: 0;
+  color: #222;
+}
+
+.note-card p {
+  color: #555;
+}
+
+/* Note Actions */
+.note-actions {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.note-actions button {
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.edit-btn {
+  background: #28a745;
+  color: white;
+}
+
+.delete-btn {
+  background: #dc3545;
+  color: white;
+}
+
+.share-btn {
+  background: #17a2b8;
+  color: white;
+}
+
+.edit-btn:hover { background: #218838; }
+.delete-btn:hover { background: #c82333; }
+.share-btn:hover { background: #117a8b; }
