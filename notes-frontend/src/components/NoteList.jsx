@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { getNotes, createNote, updateNote, deleteNote , getNoteById} from "../api";
+import { getNotes, createNote, updateNote, deleteNote ,generateShareId } from "../api";
 import NoteForm from "./NoteForm";
 
 export default function NoteList() {
   const [notes, setNotes] = useState([]);
   const [editingNote, setEditingNote] = useState(null);
 
-  // Fetch notes from backend
   const fetchNotes = async () => {
     try {
       const data = await getNotes();
@@ -28,21 +27,25 @@ export default function NoteList() {
       } else {
         await createNote(note);
       }
-      fetchNotes(); // refresh after change
+      fetchNotes();
     } catch (err) {
       console.error(err);
     }
   };
 
-  const handleShare = async (id) => {
+ const handleShare = async (note) => {
   try {
-    const data = await getNoteById(id);
-    const shareUrl = `${window.location.origin}/share/${data.shareId}`;
+    let shareId = note.shareId;
+    if (!shareId) {
+      const updatedNote = await generateShareId(note.id);
+      shareId = updatedNote.shareId;
+    }
+    const shareUrl = `${window.location.origin}/share/${shareId}`;
     await navigator.clipboard.writeText(shareUrl);
     alert("Share link copied: " + shareUrl);
   } catch (err) {
     console.error(err);
-    alert("Could not generate share link");
+    alert("Failed to generate share link");
   }
 };
 
@@ -83,6 +86,12 @@ export default function NoteList() {
                     onClick={() => handleDelete(note.id)}
                   >
                     Delete
+                  </button>
+                  <button
+                    className="share-btn"
+                    onClick={() => handleShare(note)}
+                  >
+                    Share
                   </button>
                 </div>
               </div>

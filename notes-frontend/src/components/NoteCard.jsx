@@ -2,9 +2,13 @@ import React from "react";
 
 export default function NoteCard({ note, onEdit, onDelete }) {
   const handleShare = () => {
-    const shareURL = `https://notes-backend-production-d5f1.up.railway.app/api/notes/share/${note.shareId}`;
+    if (!note.shareId) {
+      alert("This note has no share link yet. Please generate one.");
+      return;
+    }
+    const shareURL = `${window.location.origin}/share/${note.shareId}`;
     navigator.clipboard.writeText(shareURL);
-    alert("Share link copied to clipboard!");
+    alert("Share link copied: " + shareURL);
   };
 
   return (
@@ -14,8 +18,9 @@ export default function NoteCard({ note, onEdit, onDelete }) {
       <div className="note-actions">
         <button className="edit-btn" onClick={() => onEdit(note)}>Edit</button>
         <button className="delete-btn" onClick={() => onDelete(note.id)}>Delete</button>
-        <button className="share-btn" onClick={() => handleShare(note.id)}>Share</button>
+        <button className="share-btn" onClick={handleShare}>Share</button>
       </div>
     </div>
   );
 }
+

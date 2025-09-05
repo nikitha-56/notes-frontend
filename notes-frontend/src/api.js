@@ -31,9 +31,19 @@ export const deleteNote = async (id) => {
   if (!res.ok) throw new Error("Failed to delete note");
 };
 
+// Generate shareId for a note (backend creates it if not present)
+export const generateShareId = async (id) => {
+  const res = await fetch(`https://notes-backend-production-d5f1.up.railway.app/api/notes/${id}/share`, {
+    method: "POST"
+  });
+  if (!res.ok) throw new Error("Failed to generate shareId");
+  return await res.json(); // returns note with shareId
+};
 
-export const getNoteById = async (shareId) => {
+// Fetch a note by its shareId
+export const getNoteByShareId = async (shareId) => {
   const res = await fetch(`https://notes-backend-production-d5f1.up.railway.app/api/notes/share/${shareId}`);
   if (!res.ok) throw new Error("Note not found");
   return await res.json();
 };
+
