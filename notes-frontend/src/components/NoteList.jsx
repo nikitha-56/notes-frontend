@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getNotes, createNote, updateNote, deleteNote } from "../api";
+import { getNotes, createNote, updateNote, deleteNote , getNoteById} from "../api";
 import NoteForm from "./NoteForm";
 
 export default function NoteList() {
@@ -20,7 +20,6 @@ export default function NoteList() {
     fetchNotes();
   }, []);
 
-  // Handle add/update
   const handleSubmit = async (note) => {
     try {
       if (editingNote) {
@@ -34,6 +33,19 @@ export default function NoteList() {
       console.error(err);
     }
   };
+
+  const handleShare = async (id) => {
+  try {
+    const data = await getNoteById(id);
+    const shareUrl = `${window.location.origin}/share/${data.shareId}`;
+    await navigator.clipboard.writeText(shareUrl);
+    alert("Share link copied: " + shareUrl);
+  } catch (err) {
+    console.error(err);
+    alert("Could not generate share link");
+  }
+};
+
 
   const handleDelete = async (id) => {
     try {

@@ -14,7 +14,7 @@ export default function NoteCard({ note, onEdit, onDelete }) {
       <div className="note-actions">
         <button className="edit-btn" onClick={() => onEdit(note)}>Edit</button>
         <button className="delete-btn" onClick={() => onDelete(note.id)}>Delete</button>
-        <button className="share-btn" onClick={handleShare}>Share</button>
+        <button className="share-btn" onClick={() => handleShare(note.id)}>Share</button>
       </div>
     </div>
   );
