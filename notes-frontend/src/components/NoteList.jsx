@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getNotes, createNote, updateNote, deleteNote ,generateShareId } from "../api";
 import NoteForm from "./NoteForm";
 
-export default function NoteList() {
+export default function NoteList({ onLogout }) {
   const [notes, setNotes] = useState([]);
   const [editingNote, setEditingNote] = useState(null);
 
@@ -30,6 +30,7 @@ export default function NoteList() {
       fetchNotes();
     } catch (err) {
       console.error(err);
+      alert(`Error: ${err.message}`);
     }
   };
 
@@ -62,6 +63,7 @@ export default function NoteList() {
   return (
     <div className="app-container">
       <h1 className="app-title">Notes App</h1>
+      <button onClick={onLogout} style={{ float: "right" }}>Logout</button>
 
       <NoteForm onSubmit={handleSubmit} note={editingNote} />
 
